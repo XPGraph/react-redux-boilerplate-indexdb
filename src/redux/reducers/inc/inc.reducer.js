@@ -1,6 +1,7 @@
 import { createReducer } from 'shared';
 import { incStore } from 'redux/actions';
 
-export const incReducer = createReducer({}, {
+// init with null
+export const incReducer = createReducer(null, {
   [incStore]: (state, {incValue}) => incValue,
 });
