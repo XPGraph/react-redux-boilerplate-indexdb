@@ -22,7 +22,7 @@ class _Login extends React.PureComponent<Props> {
     const { incValue } = this.props;
     return (
       <div>
-        <h1>Total = { incValue }</h1>
+        <h1>Total = { incValue ? incValue : 0 }</h1>
         <button onClick={this.decAction}>-1</button>
         <button onClick={this.incAction}>+1</button>
       </div>
