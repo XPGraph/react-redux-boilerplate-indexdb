@@ -38,7 +38,7 @@ const setToken = createAction('SET_TOKEN', 'token');
 Create Reducer:
 
 ```sh
-export const authReducer = createReducer({}, {
+export const incReducer = createReducer({}, {
   [setToken]: (state, {token}) => token
 });
 ```

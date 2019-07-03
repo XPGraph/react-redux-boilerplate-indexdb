@@ -1,43 +1,48 @@
 import React from 'react';
-import { TextInput, TextInputGroup } from 'components/input';
-import { Button } from 'components/button';
+import connect from 'react-redux/es/connect/connect';
+import { setNewIncValue } from 'redux/thunks';
+import { getInc } from 'redux/selectors';
 
-export class Login extends React.PureComponent {
+interface Props {
+  incValue: Number;
+  setNewIncValue: Function;
+}
+
+class _Login extends React.PureComponent<Props> {
+
+  incAction = () => {
+    const { incValue, setNewIncValue } = this.props;
+    setNewIncValue(incValue + 1);
+  }
+  decAction = () => {
+    const { incValue, setNewIncValue } = this.props;
+    setNewIncValue(incValue - 1);
+  }
   render () {
+    const { incValue } = this.props;
     return (
       <div>
-        <h2 className="section-title color--blue">Sign in</h2>
-        <form id="login-form" name="login-form" action="/" method="POST" className="entry-form form-default">
-          <div className="form-default__main">
-            <div className="form-row">
-              <TextInput
-                label={'Login'}
-                placeholder={'Login'}
-              />
-            </div>
-            <div className="form-row">
-              <TextInputGroup
-                label={'Password'}
-                type={'password'}
-                groupRender={
-                  <div className="input-group-append">
-                    <div className="input-group-text">Forgot password?</div>
-                  </div>
-                }
-              />
-            </div>
-          </div>
-          <div className="form-default__footer">
-            <div className="form-row">
-              <Button label={'Sign in'}/>
-            </div>
-            <div className="form-row">
-              <div className="text-line text-center m-auto">Not a member yet? <a href="#">Register</a>
-              </div>
-            </div>
-          </div>
-        </form>
+        <h1>Total = { incValue }</h1>
+        <button onClick={this.decAction}>-1</button>
+        <button onClick={this.incAction}>+1</button>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    incValue: getInc(state),
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setNewIncValue: (incValue) => dispatch(setNewIncValue(incValue)),
+  };
+};
+
+export const Login = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_Login);
+

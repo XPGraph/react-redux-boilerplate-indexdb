@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { initState } from './init-state';
 import reducer from 'redux/reducers';
 import thunk from 'redux-thunk';
-import persistState from 'redux-localstorage';
+// import persistState from 'redux-localstorage';
 import {
   resetStateReducer,
   batch,
@@ -22,13 +22,13 @@ export const store = createStore(
   initState,
   composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(Object.keys(initState), {
-      key: 'state',
-      slicer: (paths) => (state) =>
-        paths.reduce((serialized, path) => ({
-          ...serialized,
-          [path]: state[path],
-        }), {}),
-    })
+    // persistState(Object.keys(initState), {
+    //   key: 'state',
+    //   slicer: (paths) => (state) =>
+    //     paths.reduce((serialized, path) => ({
+    //       ...serialized,
+    //       [path]: state[path],
+    //     }), {}),
+    // })
   )
 );
